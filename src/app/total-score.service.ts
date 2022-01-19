@@ -7,7 +7,16 @@ export class TotalScoreService {
 
   constructor() { }
 
-  public getScore(arr:any[]){
+  public getScore(arr: any[]) {
+    try {
+      return this.calculation(arr)
+    } catch (error) {
+      console.log(error)
+      return 0
+    }
+  }
+
+  private calculation(arr: any[]) {
     let sum = 0;
     for (let i = 0; i < arr.length; i++) {
       // card is number or not        
@@ -28,7 +37,6 @@ export class TotalScoreService {
       }
     }
     return sum
-
   }
 
 }

@@ -36,8 +36,7 @@ export class AppComponent implements OnInit {
     this.dealer.push(this.cards.drawRandomCard());
 
    // Intially checking score
-    this.playerScore = this.totalScore.getScore(this.player);
-    this.dealerScore = this.totalScore.getScore(this.dealer);
+   this.score()
 
    //Player having equal or more than 21 then showing message
     if (this.playerScore >= 21) {
@@ -60,10 +59,10 @@ export class AppComponent implements OnInit {
   public playerHit() {
     //if player not bust then he hit the card.
     if (this.playerCardLength < 5) {
-      this.playerScore = this.totalScore.getScore(this.player);
+      this.score();
       if (this.playerScore < 21) {
         this.player.push(this.cards.drawRandomCard());
-        this.playerScore = this.totalScore.getScore(this.player);
+        this.score();
       }
 
       //Player having equal or more than 21 then showing message
@@ -76,10 +75,10 @@ export class AppComponent implements OnInit {
   public dealerHit() {
     //if dealer not bust then he hit the card.
     if (this.dealerCardLength < 5) {
-      this.dealerScore = this.totalScore.getScore(this.dealer);
+      this.score();
       if (this.dealerScore < 21) {
         this.dealer.push(this.cards.drawRandomCard());
-        this.dealerScore = this.totalScore.getScore(this.dealer)
+        this.score();
       }
             
       //Dealer having equal or more than 21 then showing message
@@ -94,10 +93,15 @@ export class AppComponent implements OnInit {
     this.deal()
   }
 
-  public deal() {
+  // fetching score from TotalScoreService
+  public score(){
     this.playerScore = this.totalScore.getScore(this.player);
     this.dealerScore = this.totalScore.getScore(this.dealer);
+  }
 
+  public deal() {
+
+    this.score()
     //According to condition message show
     this.message = this.messageStatus.sendStatus(this.playerScore, this.dealerScore, this.player);
     
